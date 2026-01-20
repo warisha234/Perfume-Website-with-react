@@ -15,6 +15,8 @@ export default function PerfumeLandingPage() {
   // ------------------ STATE ------------------
   const [cartItems, setCartItems] = useState([]);
   const [cartOpen, setCartOpen] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
+
 
   // ------------------ FUNCTIONS ------------------
 
@@ -67,22 +69,42 @@ export default function PerfumeLandingPage() {
     link.click();
   };
 
+  const productsData = [
+  { name: "Rosewood Bliss", price: 50, img: rosewood },
+  { name: "Citrus Zest", price: 90, img: citrus },
+  { name: "Woodland Walk", price: 70, img: woodland },
+  { name: "Rosewood Bliss", price: 80, img: rosewood2 },
+  { name: "Citrus Zest", price: 70, img: citrus2 },
+  { name: "Woodland Walk", price: 100, img: woodland2 },
+];
+const filteredProducts = productsData.filter((item) =>
+  item.name.toLowerCase().includes(searchTerm.toLowerCase())
+);
+
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-[#0F2234] via-[#0f2a38] to-[#0a1620] text-white font-serif overflow-hidden">
 
       {/* ---------------- NAVBAR ---------------- */}
-      <nav className="flex items-center justify-between px-10 py-6">
+      <nav className="flex items-center justify-between px-10 py-6 fixed top-0 left-0 right-0 bg-[#0a1620]/80 backdrop-blur-md z-50">
         <h1 className="text-xl font-semibold">Perf</h1>
         <ul className="hidden md:flex gap-8 text-sm opacity-80">
-          <li className="hover:text-[#e6c98b] hover:border-b-2 hover:border-[#e6c98b] transition-all duration-300 cursor-pointer text-yellow-200">Home</li>
-          <li className="hover:text-[#e6c98b] hover:border-b-2 hover:border-[#e6c98b] transition-all duration-300 cursor-pointer">Shop</li>
-          <li className="hover:text-[#e6c98b] hover:border-b-2 hover:border-[#e6c98b] transition-all duration-300 cursor-pointer">Category</li>
-          <li className="hover:text-[#e6c98b] hover:border-b-2 hover:border-[#e6c98b] transition-all duration-300 cursor-pointer">About Us</li>
-          <li className="hover:text-[#e6c98b] hover:border-b-2 hover:border-[#e6c98b] transition-all duration-300 cursor-pointer">Contact Us</li>
+          <li className="hover:text-[#e6c98b] hover:border-b-2 hover:border-[#e6c98b] transition-all duration-300 cursor-pointer text-yellow-200"><a href="#home">Home</a></li>
+          <li className="hover:text-[#e6c98b] hover:border-b-2 hover:border-[#e6c98b] transition-all duration-300 cursor-pointer"> <a href="#shop">Shop</a></li>
+          <li className="hover:text-[#e6c98b] hover:border-b-2 hover:border-[#e6c98b] transition-all duration-300 cursor-pointer"> <a href="#category">Category</a></li>
+          <li className="hover:text-[#e6c98b] hover:border-b-2 hover:border-[#e6c98b] transition-all duration-300 cursor-pointer"> <a href="#about">About Us</a></li>
+          <li className="hover:text-[#e6c98b] hover:border-b-2 hover:border-[#e6c98b] transition-all duration-300 cursor-pointer"> <a href="#contact">Contact Us</a></li>
         </ul>
 
         <div className="flex items-center gap-4 text-sm">
-          <span className="hover:text-[#e6c98b] transition-colors duration-300 cursor-pointer">Search</span>
+          <input
+  type="text"
+  placeholder="Search perfume..."
+  value={searchTerm}
+  onChange={(e) => setSearchTerm(e.target.value)}
+  className="bg-transparent border-b border-[#e6c98b] px-2 py-1 text-sm outline-none placeholder:text-gray-300"
+/>
+
           <span 
             className="border px-4 py-1 rounded-full hover:bg-[#2b5c73] transition-all duration-300 cursor-pointer"
             onClick={() => setCartOpen(!cartOpen)}
@@ -94,7 +116,7 @@ export default function PerfumeLandingPage() {
 
       {/* ---------------- HERO SECTION ---------------- */}
       <motion.section 
-        className="relative px-10 py-20 grid md:grid-cols-2 gap-10 items-center"
+        className="relative px-10 py-20 grid md:grid-cols-2 gap-10 items-center" id="home"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1 }}
@@ -118,7 +140,7 @@ export default function PerfumeLandingPage() {
             inspires you with our <br />
             wide selection of perfumes
           </p>
-          <button className="mt-8 bg-[#1e3f50] hover:bg-[#2b5c73] px-8 py-3 rounded-full text-sm transition-all duration-300">
+          <button className="mt-8 bg-[#1e3f50] hover:bg-[#2b5c73] px-8 py-3 rounded-full text-sm transition-all duration-300"> 
             SHOP NOW 
           </button>
           <div className="mt-10 flex gap-10 text-sm">
@@ -148,46 +170,40 @@ export default function PerfumeLandingPage() {
         </motion.div>
       </motion.section>
 
+    
+      
       {/* ---------------- PRODUCTS ---------------- */}
-      <section className="px-10 py-20">
+      <section className="px-10 py-20" id="category">
         <h3 className="text-center text-3xl mb-12 text-[#e6c98b]">
           Shop Our Wide Selection of Scents
         </h3>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10">
-          {[
-            { name: "Rosewood Bliss", price: 50, img: rosewood },
-            { name: "Citrus Zest", price: 90, img: citrus },
-            { name: "Woodland Walk", price: 70, img: woodland },
-            { name: "Rosewood Bliss", price: 80, img: rosewood2 },
-            { name: "Citrus Zest", price: 70, img: citrus2 },
-            { name: "Woodland Walk", price: 100, img: woodland2 },
-          ].map((item, i) => (
-            <motion.div
-              key={i}
-              className="bg-[#102b3a] rounded-3xl p-6 text-center shadow-lg hover:scale-105 hover:shadow-2xl transition-transform duration-300"
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: i * 0.2 }}
-            >
-              <img
-                src={item.img}
-                alt={item.name}
-                className="h-40 w-full object-cover rounded-2xl mb-4"
-              />
-              <h4 className="text-lg">{item.name}</h4>
-              <p className="text-[#e6c98b] mt-2">${item.price}</p>
-              <button
-                onClick={() => addToCart(item)}
-                className="mt-4 bg-[#e6c98b] text-[#0a1620] px-4 py-2 rounded-full hover:opacity-90 transition-opacity duration-300"
+          {filteredProducts.length > 0 ? (
+            filteredProducts.map((item, i) => (
+              <motion.div
+                key={i}
+                className="bg-[#102b3a] rounded-3xl p-6 text-center shadow-lg hover:scale-105 transition"
               >
-                Add to Cart
-              </button>
-            </motion.div>
-          ))}
+                <img src={item.img} alt={item.name} className="h-40 w-full object-cover rounded-2xl mb-4" />
+                <h4 className="text-lg">{item.name}</h4>
+                <p className="text-[#e6c98b] mt-2">${item.price}</p>
+                <button
+                  onClick={() => addToCart(item)}
+                  className="mt-4 bg-[#e6c98b] text-[#0a1620] px-4 py-2 rounded-full"
+                >
+                  Add to Cart
+                </button>
+              </motion.div>
+            ))
+          ) : (
+            <p className="col-span-full text-center opacity-70">
+              No products found 😔
+            </p>
+          )}
         </div>
       </section>
+    
 
       {/* ---------------- CART DASHBOARD ---------------- */}
       {cartOpen && (
@@ -219,7 +235,7 @@ export default function PerfumeLandingPage() {
       )}
 
       {/* ---------------- REVIEWS ---------------- */}
-      <section className="px-10 py-20">
+      <section className="px-10 py-20" id="shop">
         <h3 className="text-center text-3xl mb-12 text-[#e6c98b]">Customer Reviews</h3>
         <div className="grid md:grid-cols-2 gap-10">
           {[1, 2, 3, 4].map((r, i) => (
@@ -246,7 +262,7 @@ export default function PerfumeLandingPage() {
         initial={{ opacity: 0, y: 50 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        transition={{ duration: 0.6 }}
+        transition={{ duration: 0.6 }} id="about"
       >
         <h3 className="text-3xl text-center mb-12 text-[#e6c98b]">Our Story</h3>
         <div className="md:flex md:items-center md:gap-10">
@@ -304,7 +320,7 @@ export default function PerfumeLandingPage() {
         initial={{ opacity: 0, y: 50 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        transition={{ duration: 0.6 }}
+        transition={{ duration: 0.6 }} id="contact"
       >
         <h3 className="text-3xl mb-6 text-[#e6c98b]">Stay Updated</h3>
         <p className="opacity-80 mb-6 text-sm">
